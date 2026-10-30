@@ -761,6 +761,7 @@ const FEATURES = [
   ["✉️","Peer-to-peer messaging","Secure clinical messaging with no central broker. Each instance is its own P2P node; messages are end-to-end sealed and pushed practice-to-practice.","the HealthLink replacement"],
   ["📱","First-class on a phone","One responsive page, no mobile build. Tables collapse to stacked cards, the bar reflows to full-width search, tap targets are thumb-sized.","mobile-first by construction"],
   ["🎨","White-label & theming","Every colour is a semantic token in three families. White-label per tenant, injected server-side; per-user skins, WCAG-validated.","a token system, not a reskin"],
+  ["🔑","Access control, not all-or-nothing","Authorization resolved live per request off the capability registry: any capability is a grantable permission, bundled into roles. Reception sees the schedule but not consult notes; a role can be scoped to only patients with a characteristic; an admin can view-as any role, read-only and audited.","roles · data-scope · view-as"],
 ];
 function initFeatures(){
   $('#fgrid').innerHTML = FEATURES.map(([ic,t,p,tag])=>`<div class="fcard">
@@ -784,6 +785,9 @@ const TOUR = [
   {k:"AI / agents", t:"⚙ AI-native — one capability registry",
    b:"Every feature is a self-describing, scope-gated capability. The omnibox AI planner, an MCP server, and any third-party agent all bind to this same registry — not a bolted-on chatbot.",
    w:"<b>Why it wins:</b> AI and plugins get exactly the typed tools a clinician has, and the <b>same consent scopes</b> gate them. That is how you let agents act safely — governance by construction."},
+  {k:"Access control", t:"🔑 Access control that isn’t all-or-nothing",
+   b:"Legacy PMS access is a login-time on/off switch. Here it is resolved <i>live, per request</i> off the same capability registry: every capability is a permission, bundled into roles (GP, nurse, reception, billing…) that take effect on the next click — no re-login. Reception sees the patient and schedule but not consult notes; billing handles money with no clinical access. A role can even be scoped to <i>only patients with a characteristic</i> — a cohort — enforced in the query itself.",
+   w:"<b>Why it wins:</b> clinical teams are not one trust level, and all-or-nothing forces oversharing. This gives least-privilege by permission <i>and</i> by patient, composed with consent and failing closed — and <b>view-as</b> lets an admin assume any role read-only and fully audited, to test exactly what someone will see (even a role still being designed) instead of guessing."},
   {k:"Sovereignty", t:"🔐 The record can be patient-held",
    b:"A record can live patient-held: sealed with the patient's keys, and the practice holds only ciphertext it can open for a specific, consented, time-boxed read. Flip custody, grant a reader, revoke it — on a signed, hash-chained consent ledger.",
    w:"<b>Why it wins:</b> this inverts the trust model — the patient owns the data, the practice borrows access. Revocation is real (not a policy promise), every access is logged and tamper-evident, and third-party apps become <i>consented readers</i>."},
