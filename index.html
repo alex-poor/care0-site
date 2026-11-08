@@ -77,7 +77,7 @@
 }
 
 *{box-sizing:border-box}
-html{scroll-behavior:smooth}
+html{scroll-behavior:smooth; scroll-padding-top:72px}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 body{
   margin:0; background:var(--bg); color:var(--fg);
@@ -358,6 +358,163 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
 /* generic helpers */
 .flow{display:flex; flex-direction:column; gap:18px}
 .mt{margin-top:20px}
+
+/* ── freedom / federation kernel board ───────────────────────────────────── */
+.freedom .grid{margin-top:46px; display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,52px); align-items:start}
+@media (max-width:860px){ .freedom .grid{grid-template-columns:1fr} }
+.freedom .pts{display:flex; flex-direction:column; gap:20px}
+.freedom .pt{display:flex; gap:15px}
+.freedom .pt .n{font-family:var(--font-mono); color:var(--accent); font-weight:600; flex:none; width:1.7em}
+.freedom .pt b{font-weight:600; color:var(--fg)}
+.freedom .pt span{color:var(--muted)}
+.kb{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px;
+  box-shadow:0 24px 70px rgba(0,0,0,.4); position:sticky; top:84px}
+.kb .host{border:1.5px solid var(--accent); border-radius:var(--radius-sm); background:var(--accent-wash); padding:14px; text-align:center}
+.kb .host .lbl{font-family:var(--font-mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--accent)}
+.kb .host .nm{font-family:var(--font-mono); font-size:13px; color:var(--fg); margin-top:4px}
+.kb .host .cap{margin-top:9px; font-family:var(--font-mono); font-size:14px; color:var(--muted)}
+.kb .host .cap b{color:var(--accent); font-variant-numeric:tabular-nums; font-size:16px}
+.kb .bus{height:4px; margin:11px 10px 0; border-radius:3px; position:relative;
+  background:repeating-linear-gradient(90deg,var(--line) 0 9px,transparent 9px 15px)}
+.kb .bus .pulse{position:absolute; left:0; top:-2px; width:12px; height:8px; border-radius:3px;
+  background:var(--accent); box-shadow:0 0 12px var(--accent); opacity:0}
+@keyframes busrun{0%{left:0; opacity:0} 12%{opacity:1} 88%{opacity:1} 100%{left:calc(100% - 12px); opacity:0}}
+.kb .bus .pulse.run{animation:busrun .7s ease forwards}
+@media (prefers-reduced-motion:reduce){ .kb .bus .pulse.run{animation:none} }
+.kb .tray{margin-top:14px; display:grid; grid-template-columns:1fr 1fr; gap:9px}
+.kb .plug{display:flex; gap:10px; align-items:flex-start; text-align:left; padding:10px 11px; border:1px solid var(--line);
+  border-radius:var(--radius-sm); background:var(--bg2); cursor:pointer; transition:border-color .15s ease,background .15s ease; font:inherit; color:var(--fg)}
+.kb .plug:hover{border-color:var(--accent)}
+.kb .plug.on{border-color:color-mix(in srgb,var(--ok) 55%,var(--line)); background:var(--ok-bg)}
+.kb .plug .pi{font-size:18px; line-height:1.15; flex:none}
+.kb .plug .pt2{min-width:0}
+.kb .plug .pn{font-size:13px; font-weight:600; line-height:1.25}
+.kb .plug .pk{font-family:var(--font-mono); font-size:10px; letter-spacing:.05em; text-transform:uppercase; color:var(--muted)}
+.kb .plug.on .pk{color:var(--ok)}
+.kb .unlocks{margin-top:15px; border-top:1px solid var(--line); padding-top:13px; min-height:66px}
+.kb .unlocks .uh{font-family:var(--font-mono); font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--muted)}
+.kb .ul{display:flex; gap:9px; margin-top:9px; font-size:13.5px; color:var(--fg); line-height:1.4; animation:pop .25s ease}
+@media (prefers-reduced-motion:reduce){ .kb .ul{animation:none} }
+.kb .ul .uk{color:var(--ok); flex:none}
+.kb .empty{color:var(--faint); font-size:13.5px; margin-top:9px}
+.kb .act{display:flex; gap:10px; margin-top:15px}
+@media (max-width:620px){ .kb{position:static} .kb .tray{grid-template-columns:1fr} }
+
+/* ── shared two-column layout for the new feature sections ───────────────── */
+.silos .grid, .connections .grid, .msg .grid, .ainative .grid{margin-top:46px; display:grid;
+  grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,52px); align-items:start}
+@media (max-width:860px){ .silos .grid, .connections .grid, .msg .grid, .ainative .grid{grid-template-columns:1fr} }
+.silos .pts,.connections .pts,.msg .pts,.ainative .pts{display:flex; flex-direction:column; gap:20px}
+.silos .pt,.connections .pt,.msg .pt,.ainative .pt{display:flex; gap:15px}
+.silos .pt .n,.connections .pt .n,.msg .pt .n,.ainative .pt .n{font-family:var(--font-mono); color:var(--accent); font-weight:600; flex:none; width:1.7em}
+.silos .pt b,.connections .pt b,.msg .pt b,.ainative .pt b{font-weight:600; color:var(--fg)}
+.silos .pt span,.connections .pt span,.msg .pt span,.ainative .pt span{color:var(--muted)}
+
+/* ── no-silos / two-plane ────────────────────────────────────────────────── */
+.seg2{display:inline-flex; background:var(--bg2); border:1px solid var(--line); border-radius:999px; padding:4px; gap:4px}
+.seg2 button{font-family:var(--font-mono); font-size:12.5px; font-weight:600; border:none; background:none; color:var(--muted); padding:7px 14px; border-radius:999px; cursor:pointer; transition:background .15s ease,color .15s ease}
+.seg2 button.on{background:var(--accent); color:var(--accent-ink)}
+.silostage{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 24px 70px rgba(0,0,0,.4); position:sticky; top:84px}
+.silostage .cap{font-family:var(--font-mono); font-size:11.5px; color:var(--muted); margin:14px 0 11px; display:flex; align-items:center; gap:8px}
+.silostage .cap .dot{width:8px; height:8px; border-radius:50%; flex:none}
+.copies{display:grid; grid-template-columns:1fr 1fr; gap:9px}
+.copy{border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--bg2); padding:11px}
+.copy .sys{font-weight:600; font-size:13px}
+.copy .cpy{font-family:var(--font-mono); font-size:10px; color:var(--bad); text-transform:uppercase; letter-spacing:.04em; margin-top:2px}
+.copy .fld{font-size:12px; color:var(--muted); margin-top:5px}
+.copy .fld b{color:var(--fg); font-weight:600}
+.copy .fld.drift b{color:var(--bad)}
+.onerec{border:1.5px solid var(--accent); border-radius:var(--radius-sm); background:var(--accent-wash); padding:14px; text-align:center}
+.onerec .who{font-family:var(--font-disp); font-weight:800; font-size:18px}
+.onerec .sub{font-family:var(--font-mono); font-size:11.5px; color:var(--accent); margin-top:3px}
+.readers{margin-top:11px; display:flex; flex-direction:column; gap:8px}
+.reader{display:flex; align-items:center; justify-content:space-between; gap:10px; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--bg2); padding:9px 11px}
+.reader .rn{font-size:13px}
+.reader .gt{font-family:var(--font-mono); font-size:11px; font-weight:600; border:1px solid var(--line); background:none; color:var(--muted); border-radius:999px; padding:5px 12px; cursor:pointer; transition:all .15s ease}
+.reader .gt.on{background:var(--ok-bg); color:var(--ok); border-color:color-mix(in srgb,var(--ok) 50%,var(--line))}
+.silostage .xfer{margin-top:13px; font-size:13px; color:var(--muted); border-top:1px solid var(--line); padding-top:12px; line-height:1.45}
+.silostage .xfer b{color:var(--fg)}
+.silostage .xlog{font-family:var(--font-mono); font-size:11.5px; color:var(--ok); margin-top:8px; min-height:16px}
+@media (max-width:620px){ .silostage{position:static} }
+
+/* ── connections / ego graph ─────────────────────────────────────────────── */
+.egowrap{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:14px; box-shadow:0 24px 70px rgba(0,0,0,.4); position:sticky; top:84px}
+.egowrap svg{width:100%; height:auto; display:block}
+.egoedge{stroke:var(--line); stroke-width:1.5; transition:stroke .2s ease,stroke-width .2s ease}
+.egoedge.hot{stroke:var(--accent); stroke-width:2.5}
+.egolabel{font-family:var(--font-mono); font-size:8.5px; fill:var(--faint)}
+.egolabel.hot{fill:var(--accent)}
+.egonode circle{fill:var(--bg2); stroke:var(--line); stroke-width:1.5; cursor:pointer; transition:fill .2s ease,stroke .2s ease}
+.egonode.sel circle{fill:var(--accent-bg); stroke:var(--accent); stroke-width:2.5}
+.egonode.ego circle{fill:var(--accent); stroke:var(--accent)}
+.egonode text{font-family:var(--font-body); font-size:9.5px; fill:var(--fg); text-anchor:middle; pointer-events:none}
+.egonode.ego text{fill:var(--accent-ink); font-weight:700}
+.egoinfo{border-top:1px solid var(--line); margin-top:10px; padding-top:11px; min-height:74px}
+.egoinfo .eh{font-weight:700; font-family:var(--font-disp)}
+.egoinfo .er{font-size:13px; color:var(--muted); margin-top:5px; line-height:1.4}
+.egoinfo .grant{margin-top:9px; font-size:12.5px; color:var(--ok); background:var(--ok-bg); border:1px solid color-mix(in srgb,var(--ok) 40%,var(--line)); border-radius:var(--radius-sm); padding:8px 10px; line-height:1.4}
+.egoinfo .grant b{color:var(--fg)}
+@media (max-width:620px){ .egowrap{position:static} }
+
+/* ── messaging ───────────────────────────────────────────────────────────── */
+.msgwrap{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 24px 70px rgba(0,0,0,.4); position:sticky; top:84px}
+.msgnodes{display:flex; align-items:center; justify-content:space-between; gap:8px}
+.msgnode{flex:1; text-align:center; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--bg2); padding:11px 8px}
+.msgnode.me{border-color:var(--accent)}
+.msgnode .nn{font-weight:600; font-size:12.5px}
+.msgnode .ni{font-family:var(--font-mono); font-size:10px; color:var(--faint); margin-top:2px}
+.msgwire{flex:none; width:60px; height:2px; position:relative; background:repeating-linear-gradient(90deg,var(--line) 0 6px,transparent 6px 11px)}
+.msgwire .env{position:absolute; top:-9px; left:0; font-size:13px; opacity:0}
+.msgwire .env.run{animation:envrun .8s ease forwards}
+@keyframes envrun{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:calc(100% - 12px);opacity:0}}
+@media (prefers-reduced-motion:reduce){ .msgwire .env.run{animation:none} }
+.msrelay{text-align:center; font-family:var(--font-mono); font-size:10px; color:var(--faint); margin-top:7px}
+.msgconsole{margin-top:15px; border-top:1px solid var(--line); padding-top:13px}
+.msgconsole .rl{display:flex; gap:7px; margin-bottom:11px}
+.msgconsole .rl button{flex:1; font-family:var(--font-mono); font-size:11.5px; font-weight:600; border:1px solid var(--line); background:var(--bg2); color:var(--muted); padding:8px 6px; border-radius:var(--radius-sm); cursor:pointer; transition:all .15s ease}
+.msgconsole .rl button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-wash)}
+.msglog{font-family:var(--font-mono); font-size:11.5px; margin-top:13px; display:flex; flex-direction:column; gap:6px; min-height:56px}
+.msglog .ln{color:var(--muted); animation:pop .25s ease}
+.msglog .ln b{color:var(--fg)} .msglog .ln .ok{color:var(--ok)} .msglog .ln .ct{color:var(--faint); letter-spacing:.1em}
+@media (prefers-reduced-motion:reduce){ .msglog .ln{animation:none} }
+.presence{display:flex; flex-wrap:wrap; gap:7px 14px; margin-top:13px; font-size:12px; color:var(--muted)}
+.presence .pz{display:inline-flex; align-items:center; gap:6px}
+.presence .pz i{width:8px; height:8px; border-radius:50%; background:var(--faint)}
+.presence .pz.on i{background:var(--ok)}
+@media (max-width:620px){ .msgwrap{position:static} }
+
+/* ── AI-native ───────────────────────────────────────────────────────────── */
+.aiwrap{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:18px; box-shadow:0 24px 70px rgba(0,0,0,.4); position:sticky; top:84px}
+.aiwrap .albl{font-family:var(--font-mono); font-size:11px; letter-spacing:.07em; text-transform:uppercase; color:var(--muted); margin-bottom:7px}
+.aiseg{display:flex; gap:6px; margin-bottom:15px}
+.aiseg button{flex:1; font-family:var(--font-mono); font-size:11.5px; font-weight:600; border:1px solid var(--line); background:var(--bg2); color:var(--muted); padding:8px 4px; border-radius:var(--radius-sm); cursor:pointer; transition:all .15s ease}
+.aiseg button.on{border-color:var(--accent); color:var(--accent); background:var(--accent-wash)}
+.toolcat{display:flex; flex-direction:column; gap:6px}
+.tool{display:flex; align-items:center; justify-content:space-between; gap:8px; border:1px solid var(--line); border-radius:var(--radius-sm); background:var(--bg2); padding:8px 11px; transition:opacity .15s ease}
+.tool .tnm{font-family:var(--font-mono); font-size:12px; color:var(--fg)}
+.tool .tst{font-family:var(--font-mono); font-size:10px; font-weight:600}
+.tool.ok .tst{color:var(--ok)} .tool.no .tst{color:var(--faint)}
+.tool.no{opacity:.55}
+.tool.no .tnm{text-decoration:line-through; color:var(--muted)}
+.egress{margin-top:14px; border-top:1px solid var(--line); padding-top:13px; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12.5px; color:var(--muted)}
+.egress .eb{font-family:var(--font-mono); font-size:10.5px; font-weight:600; padding:4px 10px; border-radius:999px}
+.egress .eb.none,.egress .eb.local{background:var(--ok-bg); color:var(--ok)}
+.egress .eb.gated{background:var(--warn-bg); color:var(--warn)}
+.ainote{font-size:12px; color:var(--muted); margin-top:12px; line-height:1.45}
+.ainote b{color:var(--fg)}
+@media (max-width:620px){ .aiwrap{position:static} }
+
+/* ── search-first / omnibox highlight ────────────────────────────────────── */
+.omnibox .grid{margin-top:46px; display:grid; grid-template-columns:1.1fr .9fr; gap:clamp(28px,4vw,52px); align-items:start}
+@media (max-width:860px){ .omnibox .grid{grid-template-columns:1fr} }
+.omnibox .pts{display:flex; flex-direction:column; gap:20px}
+.omnibox .pt{display:flex; gap:15px}
+.omnibox .pt .n{font-family:var(--font-mono); color:var(--accent); font-weight:600; flex:none; width:1.7em}
+.omnibox .pt b{font-weight:600; color:var(--fg)}
+.omnibox .pt span{color:var(--muted)}
+.omnibox .omni{box-shadow:0 24px 70px rgba(0,0,0,.4)}
+.omnibox .omni input[readonly]{cursor:default}
+.qchip.on{border-color:var(--accent); color:var(--fg); background:var(--accent-wash)}
 </style>
 </head>
 <body>
@@ -368,9 +525,13 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
     <a href="#top" class="wordmark" style="font-size:25px" aria-label="care0 home">care0<span class="dot">.</span></a>
     <nav aria-label="Primary">
       <a href="#bet">the bet</a>
+      <a href="#omnibox">omnibox</a>
+      <a href="#freedom">freedom</a>
+      <a href="#connections">connections</a>
+      <a href="#messaging">messaging</a>
+      <a href="#ai">AI</a>
       <a href="#features">features</a>
       <a href="#tour">the tour</a>
-      <a href="#spine">encounter spine</a>
       <a href="#architecture">architecture</a>
       <a href="#skins">make it yours</a>
     </nav>
@@ -430,6 +591,7 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
         <div class="pt"><span class="n">→</span><span><b>Revocation is simply not wrapping the next key.</b> It's real, not a policy promise — and every access is logged to the patient.</span></div>
         <div class="pt"><span class="n">→</span><span>A reviewed crypto substrate — X25519 + HKDF, ChaCha20-Poly1305 per segment — under a <b>signed, hash-chained consent ledger</b> as the tamper-evident authorization record.</span></div>
         <div class="pt"><span class="n">→</span><span>Third-party apps, a specialist, or a family member become <b>consented readers</b> the moment the patient wraps a key — revocable, audited, no central integration project.</span></div>
+        <div class="pt"><span class="n">→</span><span><b>Enrolling <i>is</i> the grant.</b> When a new patient consents at your practice, that act <b>automatically mints a FHIR IPS (International Patient Summary) grant</b> to the practice — the portable summary is readable on day one. No records-request project, no GP2GP wait.</span></div>
         <p class="kicker-big mt">This is the opposite of “harden the central DB”.</p>
       </div>
 
@@ -450,13 +612,214 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
   </div>
 </section>
 
+<!-- ── search-first / omnibox ──────────────────────────────────────────────── -->
+<section id="omnibox" class="omnibox">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Search-first console · #2</p>
+      <h2>One omnibox. <span class="accent">No module menu.</span></h2>
+      <p class="lead">The whole UI is one search box: "what do you want to do?" Type a name, a question, a task, or a few words of a document — it routes to exactly one surface. <b style="color:var(--fg);font-weight:600">Click a query to see where it goes.</b></p>
+    </div>
+    <div class="grid">
+      <div class="pts">
+        <div class="pt"><span class="n">🧑</span><span><b>A person</b> → their longitudinal record. <b>A question</b> → today's board, care-gaps, who owes money, a cohort like <i>diabetics</i>.</span></div>
+        <div class="pt"><span class="n">⌘</span><span><b>A task</b> → straight to the action with the patient pre-filled. <b>Documents</b> → full-text with highlighted snippets.</span></div>
+        <div class="pt"><span class="n">🔁</span><span><b>Retrieval, not regexes</b> — fuzzy <code>pg_trgm</code> + Postgres full-text + a synonym command index.</span></div>
+        <div class="pt"><span class="n">🔒</span><span><b>Optional LLM planner</b> for the natural-language tail that <i>only routes, never executes</i> — and runs fully local with <b>zero PHI egress</b>.</span></div>
+        <p class="kicker-big mt">Phone-native by default — type, don't hunt through menus.</p>
+      </div>
+
+      <div class="omni" aria-label="Search-first console demo">
+        <div class="bar"><span class="dot"></span><span class="dot"></span><span class="dot"></span><span class="t">one box · click a query to see where it routes</span></div>
+        <div class="box">
+          <div class="field"><span class="mag">⌕</span><input id="ob-in" type="text" readonly aria-label="Example query" value=""></div>
+          <div class="chips" id="ob-chips"></div>
+          <div class="out" id="ob-out" aria-live="polite"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── freedom / federation kernel ─────────────────────────────────────────── -->
+<section id="freedom" class="freedom">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Federation-ready · no lock-in · #3</p>
+      <h2>Everything is a <span class="accent">plugin</span>.<br>Nothing is hard-wired.</h2>
+      <p class="lead">care0 isn't an app with an integrations menu — it's a <b style="color:var(--fg);font-weight:600">host</b>. Every capability, even the first-party ones, is a plugin speaking the same three contracts. So you're never locked into a design decision you didn't make. <b style="color:var(--fg);font-weight:600">Plug something in and watch the kernel grow →</b></p>
+    </div>
+    <div class="grid">
+      <div class="pts">
+        <div class="pt"><span class="n">⤣</span><span><b>Reactors, providers, surfaces.</b> The only three ways in — react to an event, supply a capability, or add UI — each a <b>scoped, sandboxed principal</b>.</span></div>
+        <div class="pt"><span class="n">✉</span><span><b>Swap the messenger.</b> Don't want ours? Bring any Matrix-compliant client. It connects on the same contracts — no permission needed from us.</span></div>
+        <div class="pt"><span class="n">🧩</span><span><b>Bolt on a third-party tool.</b> A PHO dashboard, a research extractor, an outside AI scribe — installed as a scoped plugin, not a vendor integration project.</span></div>
+        <div class="pt"><span class="n">📱</span><span><b>Patient apps for free.</b> A heart-health app, a specialist, a whānau member becomes a consented reader the moment the patient wraps them a key.</span></div>
+        <div class="pt"><span class="n">🧠</span><span><b>AI &amp; MCP out of the box.</b> The same live capability registry projects straight out as an MCP / tool catalogue — agents get exactly what's consented, and no more.</span></div>
+        <p class="kicker-big mt">Replace any part. It's open contracts, not a walled garden.</p>
+      </div>
+
+      <!-- interactive kernel board -->
+      <div class="kb" aria-label="Kernel plugin demo">
+        <div class="host">
+          <div class="lbl">care0 kernel · host</div>
+          <div class="nm">event bus · capability registry · auth</div>
+          <div class="cap">⚡ <b id="kb-cap">55</b> capabilities on the bus</div>
+        </div>
+        <div class="bus"><span class="pulse" id="kb-pulse"></span></div>
+        <div class="tray" id="kb-tray"></div>
+        <div class="unlocks">
+          <div class="uh">What it opens up</div>
+          <div id="kb-unlocks"></div>
+        </div>
+        <div class="act">
+          <button class="btn outline" id="kb-reset" style="flex:1">Reset the board</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── no silos / two-plane ────────────────────────────────────────────────── -->
+<section id="silos" class="silos">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">One record · no silos · #4</p>
+      <h2>One record. <span class="accent">No copies</span> to keep in sync.</h2>
+      <p class="lead">Every system a patient touches keeps its own drifting copy, and none of them is owned by the patient. care0's clinical record exists <b style="color:var(--fg);font-weight:600">once</b>. A transfer isn't a migration — it's a change of grant.</p>
+    </div>
+    <div class="grid">
+      <div class="pts">
+        <div class="pt"><span class="n">A</span><span><b>Plane A — the clinical record, shared.</b> One longitudinal record behind a grant-graph. No per-practice copy to reconcile, ever.</span></div>
+        <div class="pt"><span class="n">B</span><span><b>Plane B — operational data, isolated.</b> Each org's day-to-day data is fenced off with row-level security — clean multi-tenancy without siloing the record.</span></div>
+        <div class="pt"><span class="n">→</span><span><b>Transfer = a grant.</b> Referring or moving a patient flips a grant on. Instant, audited, no export/import project.</span></div>
+        <div class="pt"><span class="n">⚖</span><span><b>Real agency for patients.</b> With consent over a single true record, the patient controls one thing that actually exists — not scattered copies nobody owns.</span></div>
+        <p class="kicker-big mt">Flip the switch — see the difference →</p>
+      </div>
+
+      <div class="silostage" aria-label="Silos versus one-record demo">
+        <div class="seg2" role="group" aria-label="Model">
+          <button id="sil-legacy" class="on">Today's systems</button>
+          <button id="sil-care0">care0</button>
+        </div>
+        <div id="sil-stage"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── connections / relationship graph ────────────────────────────────────── -->
+<section id="connections" class="connections">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">The relationship graph · #5</p>
+      <h2>Connection, modelled as it <span class="accent">really is</span>.</h2>
+      <p class="lead">Flat relationship rows in a table are hard to maintain, hard to analyse, and don't fit the reality of whānau — especially Māori and Pasifika families. A real graph does. <b style="color:var(--fg);font-weight:600">Tap a person to re-centre the network.</b></p>
+    </div>
+    <div class="grid">
+      <div class="pts">
+        <div class="pt"><span class="n">↔</span><span><b>Typed, directed edges</b> — parent, sibling, caregiver, guardian, next-of-kin — each with a derived inverse. Plus named groups: household, whānau, care-team.</span></div>
+        <div class="pt"><span class="n">◎</span><span><b>See a whole whānau at a glance,</b> with no artificial limit on how a relationship can be represented.</span></div>
+        <div class="pt"><span class="n">🔑</span><span><b>A guardian or caregiver edge mints a consent grant</b> — so proxy "acting-for" access falls straight out of the relationship, not a separate admin task.</span></div>
+        <div class="pt"><span class="n">🔬</span><span><b>Analysable:</b> shared-care, who-can-act-for-whom, contact tracing — questions a flat table can't answer.</span></div>
+        <p class="kicker-big mt">Whānau as a graph, not a column.</p>
+      </div>
+
+      <div class="egowrap" aria-label="Relationship graph demo">
+        <svg id="egosvg" viewBox="0 0 460 340" role="img" aria-label="Ego network — tap a person to re-centre"></svg>
+        <div class="egoinfo" id="egoinfo"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── messaging ───────────────────────────────────────────────────────────── -->
+<section id="messaging" class="msg">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">Peer-to-peer messaging · #6</p>
+      <h2>Messaging with <span class="accent">no one in the middle</span>.</h2>
+      <p class="lead">No central service. No national registry. No per-message toll. Each practice is its own peer-to-peer node — a message is sealed for the recipient and pushed straight to them. <b style="color:var(--fg);font-weight:600">Send one and watch.</b></p>
+    </div>
+    <div class="grid">
+      <div class="pts">
+        <div class="pt"><span class="n">🔒</span><span><b>Just a key share.</b> End-to-end sealed, pushed directly. The carrier only ever sees ciphertext — nothing in the middle to breach or bill.</span></div>
+        <div class="pt"><span class="n">∞</span><span><b>No limits</b> on volume, type or size — unlike the metered incumbent — and no single national point of failure can take messaging down.</span></div>
+        <div class="pt"><span class="n">👥</span><span><b>Message a role, not a person.</b> Send to "duty MCA" and it routes to whoever holds the role right now — the roster is the address book.</span></div>
+        <div class="pt"><span class="n">🟢</span><span><b>Presence</b> shows who's online; the roadmap adds a Matrix hub — message in patient context, post straight to the record, any compliant app on a phone.</span></div>
+        <p class="kicker-big mt">The HealthLink replacement — minus the middle.</p>
+      </div>
+
+      <div class="msgwrap" aria-label="Messaging demo">
+        <div class="msgnodes">
+          <div class="msgnode me"><div class="nn">Te Awa Medical</div><div class="ni">you · node</div></div>
+          <div class="msgwire"><span class="env" id="msg-env">✉️</span></div>
+          <div class="msgnode"><div class="nn">Riverside Health</div><div class="ni">peer · node</div></div>
+        </div>
+        <div class="msrelay">· the relay only brokers the handshake — never the plaintext ·</div>
+        <div class="msgconsole">
+          <div class="albl" style="font-family:var(--font-mono);font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Send to</div>
+          <div class="rl" role="group" aria-label="Recipient">
+            <button id="msg-peer" class="on">Riverside Health (peer)</button>
+            <button id="msg-role">"duty MCA" (role)</button>
+          </div>
+          <button class="btn" id="msg-send" style="width:100%; justify-content:center">Send sealed message →</button>
+          <div class="msglog" id="msg-log"></div>
+          <div class="presence" id="msg-presence"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── AI-native ───────────────────────────────────────────────────────────── -->
+<section id="ai" class="ainative">
+  <div class="wrap sec">
+    <div class="sechead">
+      <p class="eyebrow">AI-native / agent-ready · #7</p>
+      <h2>AI is a <span class="accent">consented principal</span>, not a bolt-on.</h2>
+      <p class="lead">The live capability registry <i>is</i> the agent's tool catalogue. An agent acting for a clinician gets exactly the scopes that are consented — no god-mode — and every call is audited. <b style="color:var(--fg);font-weight:600">Change the role and the provider →</b></p>
+    </div>
+    <div class="grid">
+      <div class="pts">
+        <div class="pt"><span class="n">🧰</span><span><b>Registry → tool catalogue.</b> Every capability is self-describing and scope-gated, so an MCP server or OpenAI function catalogue projects straight off the live registry.</span></div>
+        <div class="pt"><span class="n">🔒</span><span><b>Scoped &amp; audited.</b> An agent is a principal like any other — it gets the role's capabilities and no more, and it fails closed.</span></div>
+        <div class="pt"><span class="n">🏷️</span><span><b>Provenance-tagged.</b> AI-authored content is marked <code>author_kind=ai</code>; the clinician confirms it. A suggestion, never a silent write.</span></div>
+        <div class="pt"><span class="n">🌐</span><span><b>Provider-neutral.</b> Route to Anthropic, OpenAI, an NZ-hosted model, or fully local — with <b>zero PHI egress</b> when you choose local.</span></div>
+        <p class="kicker-big mt">The omnibox planner is just the first thing riding these rails.</p>
+      </div>
+
+      <div class="aiwrap" aria-label="AI capability demo">
+        <div class="albl">Agent acting as</div>
+        <div class="aiseg" id="ai-role" role="group" aria-label="Role">
+          <button data-r="gp" class="on">GP</button>
+          <button data-r="nurse">Nurse</button>
+          <button data-r="reception">Reception</button>
+        </div>
+        <div class="albl">Tool catalogue — from the live registry</div>
+        <div class="toolcat" id="ai-tools"></div>
+        <div class="egress">
+          <span>Model provider</span>
+          <span class="eb none" id="ai-egress">egress: none</span>
+        </div>
+        <div class="aiseg" id="ai-prov" role="group" aria-label="Provider" style="margin-top:9px; margin-bottom:0">
+          <button data-p="local" class="on">Local</button>
+          <button data-p="nz">NZ-hosted</button>
+          <button data-p="anthropic">Anthropic</button>
+        </div>
+        <p class="ainote"><b>Fails closed:</b> a capability the role doesn't hold is struck through — the agent can't call it. <b>Local</b> keeps PHI on-box.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ── features ──────────────────────────────────────────────────────────── -->
 <section id="features">
   <div class="wrap sec">
     <div class="sechead">
-      <p class="eyebrow">What's inside</p>
-      <h2>Thirteen things worth showing</h2>
-      <p class="lead">Roughly in order of “wait, it does <i>that</i>?” — every one is built and tested in the workspace.</p>
+      <p class="eyebrow">What's inside · the full list</p>
+      <h2>The rest of the platform</h2>
+      <p class="lead">The headline bets above each have their own section. Here's the rest of the surface — clinical, money, scheduling, interoperability, access, platform and UX. Most is built and tested today; a few are marked <i>roadmap</i> or <i>spike</i>, honestly.</p>
     </div>
     <div class="fgrid" id="fgrid"></div>
   </div>
@@ -493,7 +856,7 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
 <section id="spine" class="spine">
   <div class="wrap sec">
     <div class="sechead">
-      <p class="eyebrow">The Encounter spine · #5</p>
+      <p class="eyebrow">The Encounter spine · #8</p>
       <h2>One object <span class="accent">replaces four</span></h2>
       <p class="lead">An appointment is a <i>planned</i> Encounter. The queue is just the <i>arrived</i> ones. The note, conditions, orders, prescriptions and the invoice all hang off the one object as it moves through its lifecycle.</p>
     </div>
@@ -517,7 +880,7 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
 <section id="safety" class="safety">
   <div class="wrap sec">
     <div class="sechead">
-      <p class="eyebrow">Safety by construction · #6</p>
+      <p class="eyebrow">Safety by construction · #9</p>
       <h2>Illegal states <span class="accent">don't compile</span></h2>
       <p class="lead">Drug-interaction alerting is table-stakes. The differentiator is <i>where</i> the guarantee lives — in the type system, not in a runtime check someone can forget to call.</p>
     </div>
@@ -577,7 +940,7 @@ footer .about p{margin-top:12px; font-size:14px; color:var(--muted); line-height
 <section id="skins" class="skins">
   <div class="wrap sec">
     <div class="sechead">
-      <p class="eyebrow">White-label &amp; theming · #13</p>
+      <p class="eyebrow">White-label &amp; theming · #10</p>
       <h2>A design-token system, <span class="accent">not a reskin</span></h2>
       <p class="lead">Every colour is a semantic role token in three segregated families — chrome, status, accent — so a theme is pure <i>data</i>. Pick a skin and watch this whole page re-colour. These starter skins are ported from AndroidAPS.</p>
     </div>
@@ -748,20 +1111,46 @@ function initVault(){
 
 /* ── 3. FEATURE GRID ─────────────────────────────────────────────────────── */
 const FEATURES = [
-  ["🔐","Patient-sovereign records","The patient owns the record; the practice is a consented reader. Access is decided by who holds a key — not a server, not an ACL row.","can't leak what you can't decrypt"],
-  ["🤖","AI-native / agent-ready","AI is a first-class, scoped, consented accessor. An MCP server projects straight off the live capability registry; AI-authored content is provenance-tagged.","no god-mode, every access audited"],
-  ["🔗","Federation-ready","A host/kernel where everything is a plugin on the same contracts — reactors, providers, surfaces — each a scoped principal sandboxed to what a practice grants.","no bespoke integration project"],
-  ["🔎","Search-first console","The whole UI is one omnibox. It routes a typed query to exactly one surface — a person, a question, a task, or documents. Retrieval, not regexes.","one box, no module menu"],
-  ["🧬","The Encounter spine","Every contact is one Encounter with a lifecycle. Appointment, queue, note, orders and invoice all hang off one object. Finishing it auto-invoices.","one object replaces four"],
-  ["🛡️","Safety by construction","An invalid NHI can't be constructed; a prescription can't be issued without a prescriber. Enforced by typestates, at compile time — plus a Severity-3 hard block.","illegal states don't compile"],
-  ["🩺","Terminology-native coding","SNOMED / LOINC / NZULM free-text lookup wired into the console. Type “diab”, click to record a coded condition. Confirm, don't code-search.","HNZ terminology is config, not code"],
-  ["📈","Proactive & population health","A rules engine raises recalls and care-gaps and auto-resolves them. Cohort queries, a population dashboard, trend sparklines, closed-loop orders.","reactive visits → continuous care"],
-  ["💳","Front-office finance","An exact-decimal money core surfaced: debtors with aging, per-account statements, family accounts, and one-click end-of-day banking by tender.","the GP never does billing"],
-  ["👪","A person graph","People are linked as a first-class graph — typed edges and named groups. A guardian edge mints a consent grant, so proxy access actually works.","whānau as a graph, not a column"],
-  ["✉️","Peer-to-peer messaging","Secure clinical messaging with no central broker. Each instance is its own P2P node; messages are end-to-end sealed and pushed practice-to-practice.","the HealthLink replacement"],
-  ["📱","First-class on a phone","One responsive page, no mobile build. Tables collapse to stacked cards, the bar reflows to full-width search, tap targets are thumb-sized.","mobile-first by construction"],
-  ["🎨","White-label & theming","Every colour is a semantic token in three families. White-label per tenant, injected server-side; per-user skins, WCAG-validated.","a token system, not a reskin"],
-  ["🔑","Access control, not all-or-nothing","Authorization resolved live per request off the capability registry: any capability is a grantable permission, bundled into roles. Reception sees the schedule but not consult notes; a role can be scoped to only patients with a characteristic; an admin can view-as any role, read-only and audited.","roles · data-scope · view-as"],
+  ["🩺","Terminology-native coding & SDOH","SNOMED / LOINC / NZULM typeahead, live against the HNZ terminology service. Social determinants are first-class — surfaced, nudged for coding, always one click away.","clinical · built"],
+  ["💊","Drug-interaction & allergy data","A curated, class-aware NZ interaction and allergy dataset behind a licensed-source port — real data under the Severity-3 block, not a one-pair stub.","safety · built"],
+  ["🗂️","Visit types & quick notes","In-person, teleconsult and phone visit types; a documentation-only quick note that doesn't check in or bill.","clinical · built"],
+  ["✦","AI draft note","Draft a consult note from the structured record; the clinician edits and confirms. Marked author_kind=ai.","AI · built"],
+  ["🗒️","“What you need to know”","A quick-glance, tagged patient summary — what doesn't need an action isn't pushed at staff, it's here for review when wanted.","AI · built"],
+  ["🌏","Coded ethnicity","A patient-reported ethnicity editor suggesting NZ value-set concepts; multi-select retains system, code and display.","clinical · built"],
+  ["📊","Growth charts","Prematurity-corrected age and percentiles, ported from the legacy clinical rules.","paeds · ported"],
+  ["💳","Automation-first billing","Finishing an Encounter raises the invoice; subsidy derived from funding. Exact-decimal core, GST derived not stored.","finance · built"],
+  ["📉","Debtors & statements","Server-side accounts-receivable with aging chips, worst-first; per-account statements (current / 30 / 60 / 90+).","finance · built"],
+  ["👪","Family / account-holder accounts","A household rolls up to one balance; any member resolves to the family statement.","finance · built"],
+  ["🏦","End-of-day banking","The day's takings by tender — cash, eftpos, direct credit, qcard — with a one-click cash-up.","finance · built"],
+  ["◎","Funder claims that find themselves","Derived GMS off the invoice; suggested ACC off a coded injury (SNOMED, live terminology). A confirm-or-dismiss worklist of missed revenue.","finance · built"],
+  ["📋","Today's board","The clinic day as the Encounter spine in lifecycle lanes; each visit advanced inline.","scheduling · live"],
+  ["🗓️","Rosters, rooms & resources","Recurring roster rules + exceptions, computed-not-materialised; rooms and equipment as resources; multi-resource slots.","scheduling · built"],
+  ["✅","Reception & self-check-in QR","Reception check-in routes to the provider; a 2-minute, one-use QR for patient self-check-in — no identifier in the code.","scheduling · built"],
+  ["⚖️","Allocation list — triaged by need","Replace first-come / price-first booking with a clinician-worked list ranked by clinical need under a system-owned urgency floor. Practice-authored rules that can only raise priority and never see ability-to-pay (the inverse care law, closed by construction); a simulate-before-activate equity backtest over your own history. Suggestion-only — it never auto-books.","scheduling · built"],
+  ["📈","Proactive & population health","A rules engine raises recalls and care-gaps and auto-resolves them on measurement; cohort queries, a population dashboard, trend sparklines.","platform · built"],
+  ["🔭","Orders & results — closed loop","Orders are tracked until a result auto-matches and is acknowledged; unmatched results are the safety-net.","platform · built"],
+  ["℞","NZePS e-prescribing","SCID + CDA + envelope (exact legacy port), a lifecycle state-machine, auto-mint on prescribe, an exception worklist.","interop · built"],
+  ["🧪","HL7 inbound labs","A pure HL7 v2 tokeniser and ORU^R01 lab projection — the inbound results path.","interop · built"],
+  ["🏥","HNZ national APIs","Shared transport for NHI / HPI / MWS / AIR / NES / Screening / CVDRA, built against the public IGs + mock servers.","interop · roadmap"],
+  ["🔁","GP2GP record transfer","Patient-record export and import between practices.","interop · roadmap"],
+  ["🧾","FHIR R4 native","FHIR R4 structs at the boundary (wire format, not storage), including Immunization.","interop · built"],
+  ["📤","PHO export, ported","The PHO Utilisation & Clinical-Event export reproduced byte-for-byte as a runnable tool.","interop · built"],
+  ["📥","Inbound triage","The inbox that files itself: correlate-not-match, derive the clinician, auto-file the ordinary. Staff see only what needs an action.","messaging · live"],
+  ["🔑","Roles, data-scope & view-as","Authorization resolved live per request. Reception sees the schedule, not notes; a role can be scoped to a cohort; an admin can view-as any role, read-only and audited.","access · built"],
+  ["⏳","Scoped, time-boxed grants","Grant a user exactly one patient for a defined period, auto-expiring — built for locums and external shared-care-plan access.","access · built"],
+  ["🧰","Access guardrails","Least-privilege by default, separation-of-duties conflict detection, just-in-time elevation that auto-expires, and access-review recertification.","access · built"],
+  ["🪪","Keycloak auth (passkey-first)","Authentication and MFA via Keycloak; passkey-first, passwordless onboarding. The fine-grained layer lives in-platform.","access · live"],
+  ["📜","Signed consent ledger + audit","A tamper-evident, hash-chained authorization record; every access logged — on the sovereign and ordinary paths alike.","security · built"],
+  ["🔌","Typed domain-event bus","Modules publish and subscribe typed events; reactors drive the automation — auto-invoice, auto-mint EPS, recall auto-resolve.","platform · built"],
+  ["🔎","Document search","Full-text search (Postgres FTS) with highlighted snippets; results open in a document viewer.","platform · built"],
+  ["🏢","Flexible org hierarchy","org › practice › site › clinic — settings, branding, roles and rosters resolve down the tree.","platform · roadmap"],
+  ["📲","Patient-held sovereign app","An Android app where the device holds the keys; the patient grants or revokes a practice and sees every access stamp.","mobile · spike"],
+  ["📱","First-class on a phone","One responsive page, no mobile build — tables collapse to stacked cards, 44px tap targets, the bar reflows to search.","UX · built"],
+  ["⌨️","Keyboard shortcuts","User-defined shortcuts over the omnibox intent pipeline, persisted per user.","UX · built"],
+  ["🩻","Patient cockpit","A state-driven patient screen: a contextual action bar, an Actions menu, a standing-facts rail.","UX · built"],
+  ["🌐","AU / NZ foundation","A strict country boundary, an Australian IHI identifier (validated, synthetic), and honest AU scope gating — 501, never faked NZ rules.","jurisdiction · AU-ready"],
+  ["▶️","One-command demo","docker compose up postgres + cargo run; migrations apply at startup; seed ~8 realistic patients with finished consults.","dev · built"],
+  ["🧫","Synthea import at scale","Import ~500 synthetic FHIR patients through the real services — valid NHIs, SNOMED/LOINC incl. SDOH, NZ units, AI notes.","dev · built"],
 ];
 function initFeatures(){
   $('#fgrid').innerHTML = FEATURES.map(([ic,t,p,tag])=>`<div class="fcard">
@@ -901,8 +1290,201 @@ function initSkins(){
   $$('#skinpicker .skinbtn').forEach(b=>b.addEventListener('click',()=>setSkin(b.dataset.id,false)));
 }
 
+/* ── 9. FREEDOM / KERNEL BOARD ───────────────────────────────────────────── */
+const KB_BASE = 55;
+const PLUGINS = [
+  {id:'msg',    ic:'✉️', nm:'Bring-your-own messenger', kind:'surface',  cap:4, unlock:'Swap our messaging for any Matrix-compliant client — same contracts, zero lock-in.'},
+  {id:'pho',    ic:'📊', nm:'PHO analytics dashboard',  kind:'surface',  cap:3, unlock:'A third-party reporting surface, scoped to exactly what the practice grants it.'},
+  {id:'scribe', ic:'🤖', nm:'External AI scribe',        kind:'provider', cap:2, unlock:'Any speech→FHIR provider plugs the gateway — consented, audited, provenance-tagged.'},
+  {id:'recall', ic:'🔔', nm:'Recall-nudge reactor',      kind:'reactor',  cap:1, unlock:'Subscribes to care-gap events and acts — no change to the core needed.'},
+  {id:'patient',ic:'📱', nm:'Patient’s own app',         kind:'reader',   cap:0, unlock:'Wrap a key → the patient’s app becomes a consented reader. Revocable, no integration project.'},
+  {id:'mcp',    ic:'🧠', nm:'AI / MCP tool catalogue',   kind:'provider', cap:0, unlock:'The live capability registry projects straight out as an MCP / tool catalogue.'},
+];
+const kbOn = new Set();
+function kbPulse(){ if(reduced) return; const p=$('#kb-pulse'); p.classList.remove('run'); void p.offsetWidth; p.classList.add('run'); }
+function kbRender(){
+  const n = KB_BASE + [...kbOn].reduce((a,id)=>a + (PLUGINS.find(p=>p.id===id)?.cap||0), 0);
+  $('#kb-cap').textContent = n;
+  const u = $('#kb-unlocks');
+  if(!kbOn.size){ u.innerHTML = '<div class="empty">Nothing hard-wired. Plug a module in to see what it unlocks — and watch the capability count move.</div>'; return; }
+  u.innerHTML = [...kbOn].map(id=>{ const p=PLUGINS.find(x=>x.id===id);
+    return `<div class="ul"><span class="uk">✓</span><span>${p.unlock}</span></div>`; }).join('');
+}
+function initFreedom(){
+  $('#kb-tray').innerHTML = PLUGINS.map(p=>`<button class="plug" data-id="${p.id}" aria-pressed="false">
+    <span class="pi">${p.ic}</span><span class="pt2"><span class="pn">${p.nm}</span>
+    <span class="pk">${p.kind}${p.cap?` · +${p.cap} cap`:''}</span></span></button>`).join('');
+  $$('#kb-tray .plug').forEach(b=>b.addEventListener('click',()=>{
+    const id=b.dataset.id;
+    if(kbOn.has(id)){ kbOn.delete(id); b.classList.remove('on'); b.setAttribute('aria-pressed','false'); }
+    else { kbOn.add(id); b.classList.add('on'); b.setAttribute('aria-pressed','true'); kbPulse(); }
+    kbRender();
+  }));
+  $('#kb-reset').addEventListener('click',()=>{ kbOn.clear();
+    $$('#kb-tray .plug').forEach(b=>{ b.classList.remove('on'); b.setAttribute('aria-pressed','false'); }); kbRender(); });
+  kbRender();
+}
+
+/* ── 10. NO-SILOS / TWO-PLANE ────────────────────────────────────────────── */
+const SIL_READERS = [{id:'gp',n:'Dr Patel (GP)'},{id:'ph',n:'Te Awa Pharmacy'},{id:'sp',n:'Cardiology (specialist)'}];
+const silReader = new Set(['gp']);
+function silLegacy(){
+  return `<div class="cap"><span class="dot" style="background:var(--bad)"></span>4 copies · drifting · no owner</div>
+  <div class="copies">
+    <div class="copy"><div class="sys">GP PMS</div><div class="cpy">copy · synced 3 wk ago</div><div class="fld">Allergy: <b>Penicillin</b></div><div class="fld">Meds: <b>4 active</b></div></div>
+    <div class="copy"><div class="sys">After-hours</div><div class="cpy">copy · 6 mo ago</div><div class="fld drift">Allergy: <b>none recorded</b></div><div class="fld">Meds: <b>2 active</b></div></div>
+    <div class="copy"><div class="sys">Specialist</div><div class="cpy">copy · faxed</div><div class="fld">Allergy: <b>Penicillin</b></div><div class="fld drift">Meds: <b>unknown</b></div></div>
+    <div class="copy"><div class="sys">Pharmacy</div><div class="cpy">its own system</div><div class="fld drift">Allergy: <b>not shared</b></div><div class="fld">Meds: <b>5 dispensed</b></div></div>
+  </div>
+  <div class="xfer"><b>Transfer to a new GP?</b> Export → import → manually reconcile the conflicts. Weeks — and the copies keep drifting after.</div>`;
+}
+function silCare0(){
+  const readers = SIL_READERS.map(r=>{const on=silReader.has(r.id);
+    return `<div class="reader"><span class="rn">${r.n}</span><button class="gt ${on?'on':''}" data-id="${r.id}">${on?'granted ✓':'grant'}</button></div>`;}).join('');
+  return `<div class="cap"><span class="dot" style="background:var(--ok)"></span>one record · ${silReader.size} consented reader${silReader.size===1?'':'s'} · fully audited</div>
+  <div class="onerec"><div class="who">Hine Ngata</div><div class="sub">🔐 one record · patient-held · ABC1235</div></div>
+  <div class="readers">${readers}</div>
+  <div class="xfer"><b>Transfer = a grant.</b> No copy, no import — toggle a reader and it's done.<div class="xlog" id="sil-log"></div></div>`;
+}
+function silRender(mode){
+  $('#sil-legacy').classList.toggle('on',mode==='legacy');
+  $('#sil-care0').classList.toggle('on',mode==='care0');
+  $('#sil-stage').innerHTML = mode==='legacy'?silLegacy():silCare0();
+  if(mode==='care0'){
+    $$('#sil-stage .gt').forEach(b=>b.addEventListener('click',()=>{
+      const id=b.dataset.id, r=SIL_READERS.find(x=>x.id===id);
+      if(silReader.has(id)) silReader.delete(id); else silReader.add(id);
+      silRender('care0');
+      const log=$('#sil-log'); if(log) log.textContent = `${silReader.has(id)?'granted':'revoked'} · ${r.n} · logged to ledger`;
+    }));
+  }
+}
+function initSilos(){
+  $('#sil-legacy').addEventListener('click',()=>silRender('legacy'));
+  $('#sil-care0').addEventListener('click',()=>silRender('care0'));
+  silRender('legacy');
+}
+
+/* ── 11. CONNECTIONS / EGO GRAPH ─────────────────────────────────────────── */
+const cap1 = s => s.charAt(0).toUpperCase()+s.slice(1);
+const PEOPLE = {
+  hine:   {nm:'Hine',    x:230, y:168},
+  wiremu: {nm:'Wiremu',  x:366, y:120},
+  tane:   {nm:'Tāne',    x:372, y:238},
+  aroha:  {nm:'Aroha',   x:252, y:300},
+  mere:   {nm:'Mere',    x:104, y:92},
+  materoa:{nm:'Materoa', x:86,  y:214},
+  rangi:  {nm:'Rangi',   x:150, y:300},
+};
+const EDGES = [
+  ['hine','wiremu','partner'],
+  ['hine','tane','parent'],
+  ['hine','aroha','parent'],
+  ['mere','hine','parent'],
+  ['materoa','hine','caregiver'],
+  ['hine','rangi','sibling'],
+  ['mere','rangi','parent'],
+];
+const INV = {parent:'child', child:'parent', caregiver:'dependant', guardian:'ward', 'next-of-kin':'next-of-kin', partner:'partner', sibling:'sibling'};
+let egoSel = 'hine';
+function egoRel(id){
+  const out=[];
+  EDGES.forEach(([a,b,lab])=>{
+    if(a===id) out.push(`${cap1(lab)} of ${PEOPLE[b].nm}`);
+    else if(b===id) out.push(`${cap1(INV[lab]||lab)} of ${PEOPLE[a].nm}`);
+  });
+  return out;
+}
+function egoRender(){
+  const edges = EDGES.map(([a,b,lab])=>{
+    const hot=(a===egoSel||b===egoSel), A=PEOPLE[a], B=PEOPLE[b];
+    const mx=(A.x+B.x)/2, my=(A.y+B.y)/2;
+    return `<line class="egoedge ${hot?'hot':''}" x1="${A.x}" y1="${A.y}" x2="${B.x}" y2="${B.y}"/>
+      <text class="egolabel ${hot?'hot':''}" x="${mx}" y="${my-3}" text-anchor="middle">${lab}</text>`;
+  }).join('');
+  const nodes = Object.entries(PEOPLE).map(([id,p])=>{
+    const cls = id==='hine'?'ego':(id===egoSel?'sel':''), r = id==='hine'?27:22;
+    return `<g class="egonode ${cls}" data-id="${id}"><circle cx="${p.x}" cy="${p.y}" r="${r}"/><text x="${p.x}" y="${p.y+3}">${p.nm}</text></g>`;
+  }).join('');
+  $('#egosvg').innerHTML = edges + nodes;
+  $$('#egosvg .egonode').forEach(g=>g.addEventListener('click',()=>{ egoSel=g.dataset.id; egoRender(); }));
+  const p=PEOPLE[egoSel], rels=egoRel(egoSel);
+  let grant='';
+  EDGES.forEach(([a,b,lab])=>{ if(a===egoSel && (lab==='caregiver'||lab==='guardian'))
+    grant=`🔑 ${cap1(lab)} edge → mints a consent grant → <b>${p.nm} can act for ${PEOPLE[b].nm}</b>.`; });
+  $('#egoinfo').innerHTML = `<div class="eh">${p.nm} Ngata${egoSel==='hine'?' · focus':''}</div>
+    <div class="er">${rels.length?rels.join(' · '):'No direct links recorded.'}</div>
+    ${grant?`<div class="grant">${grant}</div>`:''}
+    <div class="er" style="color:var(--faint)">Group: <b style="color:var(--muted)">Ngata whānau</b> · tap any person to re-centre.</div>`;
+}
+function initConnections(){ egoRender(); }
+
+/* ── 12. MESSAGING ───────────────────────────────────────────────────────── */
+let msgTo='peer';
+const MSG_PRESENCE=[['Aroha T.',true],['Dr Patel',true],['Sefa M.',false],['Nurse Kim',true]];
+function msgEnv(){ if(reduced) return; const e=$('#msg-env'); e.classList.remove('run'); void e.offsetWidth; e.classList.add('run'); }
+function msgSend(){
+  msgEnv();
+  const t=new Date().toLocaleTimeString(), lines = msgTo==='peer'
+    ? [`<span class="ln"><b>→ Riverside Health</b> · 🔒 sealed for recipient</span>`,
+       `<span class="ln">carrier sees: <span class="ct">▓▓▓▓▓▓ ciphertext</span></span>`,
+       `<span class="ln"><span class="ok">✓ delivered (Direct)</span> · ${t} · no broker</span>`]
+    : [`<span class="ln"><b>→ role: "duty MCA"</b></span>`,
+       `<span class="ln">resolved via roster → <b>Aroha T.</b> (on now)</span>`,
+       `<span class="ln"><span class="ok">✓ delivered</span> · routed to the holder · ${t}</span>`];
+  $('#msg-log').innerHTML = lines.join('');
+}
+function initMessaging(){
+  $('#msg-peer').addEventListener('click',()=>{ msgTo='peer'; $('#msg-peer').classList.add('on'); $('#msg-role').classList.remove('on'); });
+  $('#msg-role').addEventListener('click',()=>{ msgTo='role'; $('#msg-role').classList.add('on'); $('#msg-peer').classList.remove('on'); });
+  $('#msg-send').addEventListener('click',msgSend);
+  $('#msg-presence').innerHTML = MSG_PRESENCE.map(([n,on])=>`<span class="pz ${on?'on':''}"><i></i>${n}</span>`).join('');
+}
+
+/* ── 13. AI-NATIVE ───────────────────────────────────────────────────────── */
+let aiRole='gp', aiProv='local';
+const AI_TOOLS=[
+  {cap:'patient.read',        roles:['gp','nurse','reception']},
+  {cap:'clinical.read_notes', roles:['gp','nurse']},
+  {cap:'clinical.prescribe',  roles:['gp']},
+  {cap:'ai.draft_note',       roles:['gp','nurse']},
+  {cap:'billing.take_payment',roles:['gp','reception']},
+  {cap:'consent.grant',       roles:['gp']},
+];
+const AI_EGRESS={local:['none','egress: none · PHI on-box'], nz:['local','in-country · NZ-hosted'], anthropic:['gated','egress: gated · consented']};
+function aiRender(){
+  $('#ai-tools').innerHTML = AI_TOOLS.map(t=>{const ok=t.roles.includes(aiRole);
+    return `<div class="tool ${ok?'ok':'no'}"><span class="tnm">${t.cap}</span><span class="tst">${ok?'callable':'fails closed'}</span></div>`;}).join('');
+  const e=AI_EGRESS[aiProv], badge=$('#ai-egress'); badge.className='eb '+e[0]; badge.textContent=e[1];
+}
+function initAi(){
+  $$('#ai-role button').forEach(b=>b.addEventListener('click',()=>{ aiRole=b.dataset.r; $$('#ai-role button').forEach(x=>x.classList.toggle('on',x===b)); aiRender(); }));
+  $$('#ai-prov button').forEach(b=>b.addEventListener('click',()=>{ aiProv=b.dataset.p; $$('#ai-prov button').forEach(x=>x.classList.toggle('on',x===b)); aiRender(); }));
+  aiRender();
+}
+
+/* ── 9b. SEARCH-FIRST / OMNIBOX HIGHLIGHT ────────────────────────────────── */
+const OBHL = {
+  "te ariki williams":{kind:"PERSON",h:"Open the longitudinal record",p:"Timeline, conditions, meds — with a contextual action bar."},
+  "diabetics":{kind:"COHORT · QUESTION",h:"Patients matching a criterion",p:"The cohort view — click any patient straight through."},
+  "who owes money":{kind:"QUESTION",h:"Debtors, worst-first",p:"Accounts-receivable with aging chips."},
+  "lab order for hine ngata":{kind:"TASK",h:"Place a lab order",p:"Jumps to the action with the patient pre-filled."},
+  "discharge summary":{kind:"DOCUMENTS",h:"Full-text document search",p:"Matching documents with highlighted snippets."},
+};
+const OB_ORDER = Object.keys(OBHL);
+function renderOB(k){ const r=OBHL[k]; if(!r) return; $('#ob-in').value=k;
+  $('#ob-out').innerHTML = `<div class="route"><div class="kind">${r.kind}</div><h4>${r.h}</h4><p>${r.p}</p></div>`;
+  $$('#ob-chips .qchip').forEach(c=>c.classList.toggle('on',c.dataset.k===k));
+}
+function initOmnibox(){
+  $('#ob-chips').innerHTML = OB_ORDER.map(k=>`<button class="qchip" data-k="${k}">${k}</button>`).join('');
+  $$('#ob-chips .qchip').forEach(c=>c.addEventListener('click',()=>renderOB(c.dataset.k)));
+  renderOB(OB_ORDER[0]);
+}
+
 /* ── boot ────────────────────────────────────────────────────────────────── */
-initOmni(); initVault(); initFeatures(); initTour(); initSpine(); initSafety(); initCrates(); initSkins();
+initOmni(); initOmnibox(); initVault(); initFreedom(); initSilos(); initConnections(); initMessaging(); initAi();
+initFeatures(); initTour(); initSpine(); initSafety(); initCrates(); initSkins();
 </script>
 </body>
 </html>
